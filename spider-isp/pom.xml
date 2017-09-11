@@ -1,0 +1,156 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.xinyan</groupId>
+  <artifactId>spider-isp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <name>spider-isp</name>
+  <description>运行商平台</description>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jdk.version>1.7</jdk.version>
+    <junit.version>4.11</junit.version>
+    <slf4j.version>1.7.21</slf4j.version>
+    <logback.version>1.1.7</logback.version>
+    <spring.version>4.2.6.RELEASE</spring.version>
+    <commons.lang3>3.4</commons.lang3>
+    <commons.collections4>4.0</commons.collections4>
+    <jackson.version>2.8.0.rc1</jackson.version>
+    <jsoup.version>1.9.2</jsoup.version>
+    <fastjson.version>1.1.37</fastjson.version>
+    <xsoup.version>0.3.1</xsoup.version>
+    <json.path.version>2.2.0</json.path.version>
+    <htmlunit.version>2.22</htmlunit.version>
+    <httpcore.version>4.4</httpcore.version>
+    <httpclient.version>4.5.2</httpclient.version>
+
+    <!-- plugin-->
+    <compiler.plugin.version>3.1</compiler.plugin.version>
+    <resource.plugin.version>2.6</resource.plugin.version>
+  </properties>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.4</version>
+    </dependency>
+    <!-- logback -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+  </dependencies>
+
+  <modules>
+  	<module>isp-common</module>
+  	<module>isp-mobile</module>
+    <module>isp-main</module>
+  </modules>
+  
+  <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <!-- Import dependency management from Spring Boot -->
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-dependencies</artifactId>
+          <version>1.5.6.RELEASE</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.xinyan</groupId>
+          <artifactId>isp-common</artifactId>
+          <version>${project.version} </version>
+        </dependency>
+        <dependency>
+          <groupId>com.caucho</groupId>
+          <artifactId>hessian</artifactId>
+          <version>${hessian.version}</version>
+        </dependency>
+      </dependencies>
+  </dependencyManagement>
+
+  <!-- 构建管理 -->
+  <build>
+    <!-- 基础插件配置 -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${compiler.plugin.version}</version>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <!-- 插件管理 -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${compiler.plugin.version}</version>
+          <configuration>
+            <source>${jdk.version}</source>
+            <target>${jdk.version}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <showWarnings>true</showWarnings>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${resource.plugin.version}</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+      </plugins>
+      </pluginManagement>
+  </build>
+</project>

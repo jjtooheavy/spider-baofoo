@@ -1,0 +1,80 @@
+<configuration>
+	<property name="log.base" value="/data/log"  />
+	<property name="pattern"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{sessionId}] %-5level [%thread] %logger{80} :%msg%n" />
+
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!--root -->
+    <appender name="root" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/isp-root.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/isp-root-%i.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>512MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 异常 -->
+    <appender name="exception" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/isp-exception.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/isp-exception-%i.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>512MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 手机 -->
+    <appender name="mobile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/isp-mobile.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/isp-mobile-%i.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>512MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 外部jar包 日志级别设置 -->
+    <logger level="ERROR" name="org.mybatis" />
+    <logger level="ERROR" name="com.mysql"/>
+    <logger level="ERROR" name="java.lang"/>
+    <logger level="ERROR" name="org.spring"/>
+
+    <logger name="com.xinyan.spider.isp.mobile" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="mobile"/>
+    </logger>
+
+    <!-- 日志过滤 -->
+    <logger name="com.xinyan.spider.isp">
+        <level value="info"/>
+    </logger>
+
+	<!-- root级别控制 -->
+	<root level="INFO">
+		<appender-ref ref="stdout" />
+        <appender-ref ref="root" />
+	</root>
+
+</configuration>
